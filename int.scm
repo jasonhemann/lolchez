@@ -16,16 +16,9 @@
   (lambda (x)
     (cdr (assq x (env)))))
 
-(define parser
-  (lambda (wds)
-    (map (lambda (x) 
-           (let ([n (string->number x)])
-             (if n n (string->symbol x))))
-         wds)))
-
 (define int
   (lambda (e)
-    (pmatch (parser (words e))
+    (pmatch e
       [(,var R ,val) (change-env var val)]
       [(,n1 UP ,n2) (+ n1 n2)]
       [(,n1 NERF ,n2) (- n1 n2)]
