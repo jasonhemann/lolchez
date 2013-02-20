@@ -1,4 +1,4 @@
 lolchez
 =======
 
-A Scheme REPL & interpreter for LOLCODE.
+A Scheme REPL & interpreter for [LOLCODE](http://lolcode.com).
