@@ -20,9 +20,9 @@
   (lambda (str)
     (split-string (lambda (c) (equal? c #\newline)) str)))
 
-(define parser
-  (lambda (wds)
-    (map (lambda (x) 
-           (let ([n (string->number x)])
-             (if n n (string->symbol x))))
-         wds)))
+(define parse
+  (lambda (str)
+    (map (lambda (w)
+           (let ([n (string->number w)])
+             (if n n (string->symbol w))))
+         (words str))))
