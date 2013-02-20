@@ -24,12 +24,12 @@
       [(,n1 TIEMZ ,n2) (* n1 n2)]
       [(,n1 OVAR ,n2) (/ n1 n2)]
       [(,FUCK ,MICHAEL) (guard (equal? FUCK 'FUCK) (equal? MICHAEL 'MICHAEL))
-                        (begin (printf "LOL. RAGEQUIT. \n")
-                               (int "FUCK MICHAEL"))] 
+       (begin (printf "LOL. RAGEQUIT. \n")
+              (int "FUCK MICHAEL"))] 
       [(,n) (guard (number? n)) n]
       [(,x) (guard (symbol? x)) (unbox (apply-env x))]
       [(I HAZ A ,var ITS ,val) (guard (symbol? var))
-                               (extend-env var (box val))]
+       (extend-env var (box val))]
       [(I HAZ A ,var) (guard (symbol? var))
-                      (extend-env var (box 'null))])))
+       (extend-env var (box 'null))])))
 
