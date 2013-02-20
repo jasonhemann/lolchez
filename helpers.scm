@@ -3,7 +3,7 @@
     (let loop ([i 0])
       (cond
        [(= i (string-length str)) (list str)]
-       [(equal? #\space (string-ref str i))
+       [(char-whitespace? (string-ref str i))
 	(cons (substring str 0 i)
 	      (words (substring str (add1 i) (string-length str))))]
        [else
