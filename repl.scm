@@ -25,6 +25,8 @@
       (cond
         [(eof-object? input) (printf "BAI!~n")]
         [(= 0 (string-length input)) (repl (read-line))]
-        [else (begin (write (int (parse input)))
-                     (newline)
-                     (repl (read-line)))]))))
+        [else (let ([output (int (parse input))])
+                (if (not (eq? output (void)))
+                  (begin (write output)
+                         (newline)))
+                (repl (read-line)))]))))
