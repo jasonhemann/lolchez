@@ -19,8 +19,9 @@
 (define parser
   (lambda (wds)
     (map (lambda (x) 
-	   (if (string->number x) (string->number x) (string->symbol x)))
-	 wds)))
+           (let ([n (string->number x)])
+             (if n n (string->symbol x))))
+         wds)))
 
 (define int
   (lambda (e)
