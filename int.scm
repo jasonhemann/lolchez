@@ -32,4 +32,7 @@
       [(I HAZ A ,var ITS ,val) (guard (symbol? var))
        (extend-env var (box val))]
       [(I HAZ A ,var) (guard (symbol? var))
-       (extend-env var (box 'null))])))
+       (extend-env var (box 'null))]
+      [,invalid
+        (begin (format (current-error-port) "invalid syntax in:~n")
+               invalid)])))
