@@ -12,6 +12,10 @@
   (lambda (str)
     (split-string char-whitespace? str)))
 
+(define commas
+  (lambda (str)
+    (split-string (lambda (c) (equal? c #\,)) str)))
+
 (define lines
   (lambda (str)
     (split-string (lambda (c) (equal? c #\newline)) str)))

@@ -19,6 +19,7 @@
   (lambda (e)
     (pmatch e
       [(,var R ,val) (change-env var val)]
+      [(,n1 UP) (add1 n1)]
       [(,n1 UP ,n2) (+ n1 n2)]
       [(,n1 NERF ,n2) (- n1 n2)]
       [(,n1 TIEMZ ,n2) (* n1 n2)]
