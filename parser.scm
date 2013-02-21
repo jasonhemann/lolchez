@@ -1,3 +1,16 @@
+;; Main parser
+
+(define parse
+  (lambda (str)
+    (map (lambda (w)
+           (let ([n (string->number w)])
+             (if n n (string->symbol w))))
+         (words str))))
+
+
+
+;; Some string-splitting functions
+
 (define split-string
   (lambda (p? str)
     (let loop ([i 0])
@@ -15,10 +28,3 @@
 (define commas
   (lambda (str)
     (split-string (lambda (c) (equal? c #\,)) str)))
-
-(define parse
-  (lambda (str)
-    (map (lambda (w)
-           (let ([n (string->number w)])
-             (if n n (string->symbol w))))
-         (words str))))
