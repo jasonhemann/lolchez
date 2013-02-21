@@ -2,10 +2,13 @@
 
 (define parse
   (lambda (str)
-    (map (lambda (w)
-           (let ([n (string->number w)])
-             (if n n (string->symbol w))))
-         (words str))))
+    (let ([syms (map (lambda (w)
+                       (let ([n (string->number w)])
+                         (if n n (string->symbol w))))
+                     (words str))])
+      (if (null? (cdr syms)) ; If parsing a single word,
+        (car syms)           ; return just that symbol. Otherwise,
+        syms))))             ; return the list of parsed symbols.
 
 
 
