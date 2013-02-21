@@ -13,7 +13,12 @@
 
 (define apply-env
   (lambda (x)
-    (cdr (assq x (env)))))
+    (let ([kv (assq x (env))])
+      (if kv
+        (cdr kv)
+        (begin
+          (format (current-error-port) "NO FIND YR ~s!!!~n" x)
+          (box (void)))))))
 
 (define int
   (lambda (e)
