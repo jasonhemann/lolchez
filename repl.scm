@@ -21,12 +21,14 @@
 
 (define lol-repl
   (lambda ()
-    (let repl ([input (read-line)])
+    (display "LOL:p ")
+    (let ([input (read-line)])
       (cond
         [(eof-object? input) (printf "BAI!~n")]
-        [(= 0 (string-length input)) (repl (read-line))]
-        [else (let ([output (int (parse input))])
+        [(= 0 (string-length input)) (lol-repl)]
+        [else (let* ([parsed (parse input)]
+                     [output (int parsed)])
                 (if (not (eq? output (void)))
                   (begin (write output)
                          (newline)))
-                (repl (read-line)))]))))
+                (lol-repl))]))))
