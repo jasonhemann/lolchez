@@ -16,10 +16,6 @@
   (lambda (str)
     (split-string (lambda (c) (equal? c #\,)) str)))
 
-(define lines
-  (lambda (str)
-    (split-string (lambda (c) (equal? c #\newline)) str)))
-
 (define parse
   (lambda (str)
     (map (lambda (w)
