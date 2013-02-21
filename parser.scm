@@ -5,10 +5,29 @@
     (let ([syms (map (lambda (w)
                        (let ([n (string->number w)])
                          (if n n (string->symbol w))))
-                     (words str))])
+                     (fix-UP!! (words str)))])
       (if (null? (cdr syms)) ; If parsing a single word,
         (car syms)           ; return just that symbol. Otherwise,
         syms))))             ; return the list of parsed symbols.
+
+(define fix-UP!!
+  (lambda (wds)
+    (fold-right (lambda (w wds)
+                  (if (string-prefix? w "UP!!")
+                    (cons "UP!!" (cons (substring w 4 (string-length w)) wds))
+                    (cons w wds)))
+                '()
+                wds)))
+
+(define string-prefix?
+  (lambda (str pre)
+    (let loop ([i 0])
+      (cond
+        [(= i (string-length pre)) #t]
+        [(= i (string-length str)) #f]
+        [(eq? (string-ref str i) (string-ref pre i))
+         (loop (add1 i))]
+        [else #f]))))
 
 
 
