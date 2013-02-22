@@ -33,8 +33,11 @@
                 [(,n1 TIEMZ ,n2) (* (int n1) (int n2))]
                 [(,n1 OVAR ,n2) (/ (int n1) (int n2))]
                 [(FUCK MICHAEL)
-                 (begin (printf "LOL. RAGEQUIT. \n")
-                        (int '(FUCK MICHAEL)))] 
+                 (begin (printf "0> LOL. RAGEQUIT. \n")
+                        (int '(FUCK MICHAEL 1)))] 
+                [(FUCK MICHAEL ,n)
+                 (begin (printf "~s> LOL. RAGEQUIT. \n" n)
+                        (int `(FUCK MICHAEL ,(add1 n))))]
                 [,n (guard (number? n)) n]
                 [,x (guard (symbol? x)) (unbox (apply-env x))]
                 [(I HAZ A ,var ITS ,val) (guard (symbol? var))
