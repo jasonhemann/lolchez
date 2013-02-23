@@ -2,19 +2,37 @@
 
 (define parse
   (lambda (str)
-    (let ([syms (map (lambda (w)
-                       (let ([n (string->number w)])
-                         (if n n (string->symbol w))))
-                     (fix-UP!! (words str)))])
-      (if (null? (cdr syms)) ; If parsing a single word,
-        (car syms)           ; return just that symbol. Otherwise,
-        syms))))             ; return the list of parsed symbols.
+    (if (incomplete-line? str)
+      (return-incomplete-obj str)
+      (let ([syms (map (lambda (w)
+                         (let ([n (string->number w)])
+                           (if n n (string->symbol w))))
+                       (fix-UP!! (words str)))])
+        (if (null? (cdr syms)) ; If parsing a single word,
+          (car syms)           ; return just that symbol. Otherwise,
+          syms)))))            ; return the list of parsed symbols.
+
+(define incomplete-line?
+  (lambda (str)
+    (and (> (string-length str) 3)
+         (equal? "..." (substring str (- (string-length  str) 3) (string-length str))))))
+
+(define incomplete?
+  (lambda (parsed)
+    (and (pair? parsed) (eq? 'incomplete-value (car parsed)))))
+
+(define return-incomplete-obj
+  (lambda (str)
+    `(incomplete-value ,(substring str 0 (- (string-length str) 3)))))
 
 (define fix-UP!!
   (lambda (wds)
     (fold-right (lambda (w wds)
                   (if (string-prefix? w "UP!!")
-                    (cons "UP!!" (cons (substring w 4 (string-length w)) wds))
+                    (cons "UP!!" (let ([arg (substring w 4 (string-length w))])
+                                   (if (= 0 (string-length arg))
+                                     wds
+                                     (cons arg wds))))
                     (cons w wds)))
                 '()
                 wds)))

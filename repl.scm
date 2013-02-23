@@ -25,9 +25,14 @@
       (cond
         [(eof-object? input) (printf "BAI!~n")]
         [(= 0 (string-length input)) (lol-repl)]
-        [else (let* ([parsed (parse input)]
-                     [output (int parsed)])
-                (if (not (eq? output (void)))
-                  (begin (write output)
-                         (newline)))
-                (lol-repl))]))))
+        [else (eval-print (parse input))]))))
+
+(define eval-print
+  (lambda (parsed)
+    (if (incomplete? parsed)
+      (eval-print (parse (string-append (cadr parsed) (read-line))))
+      (let ([output (int parsed)])
+        (if (not (eq? output (void)))
+          (begin (write output)
+                 (newline)))
+        (lol-repl)))))

@@ -26,7 +26,7 @@
 (define int
   (lambda (e)
     (let ([it (pmatch e
-                [(,var R ,val) (change-env var val)]
+                [(,var R . ,val) (change-env var (int val))]
                 [(,n1 UP!!) (add1 (int n1))]
                 [(,n1 UP!! ,n2) (+ (int n1) (int n2))]
                 [(,n1 NERF ,n2) (- (int n1) (int n2))]
